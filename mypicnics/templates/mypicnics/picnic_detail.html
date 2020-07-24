@@ -1,0 +1,117 @@
+{% extends "mypicnics/base.html" %}
+
+{% block content %}
+
+{% block createartwork %}{% endblock createartwork %}
+
+<script type="text/javascript">
+    function showKey(){
+        $('#showkey').modal('show');
+    }
+    function leavePicnic(){
+        $('#leavepicnic').modal('show');
+    }
+</script>
+
+<div id="showkey" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ object.name }} Invite Key</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <h3>{{ object.key }}</h3>
+            <p>Copy and share this key to invite friends to your picnic</p>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+
+
+      </div>
+    </div>
+  </div>  
+
+<div class="cover cover-small">
+    <img class="headImage" src="{{object.background_image.url}}">
+    <div class="coverText">
+        <h1>{{object.name}}</h1>
+    </div>
+</div> 
+
+<div class="container light">
+
+  {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+        <br><br>
+    {% endif %}
+
+    
+    <div class="row">
+      <div class="col-9">
+        <a href="{% url 'my-picnics' %}">← Back to My Picnics</a><br><br>
+        <h3>Artworks</h3>
+        <a href="{% url 'upload' object.id %}"><input class="btn btn-primary solidbtn" type="submit" value="New"/></a><br><br>
+
+          {% for artwork in object.artworks.all reversed %}
+  
+              <a href="{% url 'artwork-detail' object.id artwork.id %}" class="picniclink">
+                  <div class="card">
+                      <img class="card-img-top" src="{{artwork.artwork.url}}" alt="Card image cap">
+                      <div class="card-body">
+                          <div class="card-title">
+                            <h5>{{artwork.title}}</h5>
+                            <p class="small"><b>by {{artwork.artist.username}}</b></p>
+                          </div>
+                          <div class="card-text">
+                            <p>{{artwork.description}}</p>
+                          </div>
+                      </div>
+                  </div>
+              </a>
+
+          {% endfor %}
+
+
+      </div>
+      <div class="col">
+            <div class = "content-section">
+                <h3>{{object.name}} 
+                </h3>
+                <h5>Host: {{object.host.username}}</h5>
+                {% if object.host == user %}
+                    <a href="#"><input class="btn btn-primary solidbtn" type="submit" value="Invite Users" onclick="showKey()"/></a><br><br>
+                {% endif %}
+                <p class="picnicdescrip">{{object.description}}
+                  {% if object.host == user %}
+                  • <a href="{% url 'picnic-update' object.id %}">Edit</a>
+                  {% endif %}
+                </p>
+                
+                  <p></p>
+                <h3>Members</h3>
+                <ul class="list-group">
+                    {% for member in object.members.all %}
+                        <li class="list-group-item">{{ member.username }}
+                          {% if member == user %}
+                            <a href="{% url 'leavepicnic' object.id member.id %}" class="small" style="float:right">leave</a>
+                          {% elif object.host == user %}
+                              <a href="{% url 'leavepicnic' object.id member.id %}" class="small" style="float:right">remove</a>
+                          {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

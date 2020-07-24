@@ -1,0 +1,17 @@
+{% extends "mypicnics/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <a id="a1"></a>
+
+    <div class="light">
+        <div class="container">
+            <h4>Sorry, something went wrong!</h4>
+            <p class="homeText">
+                <a href="{% url 'picnic-home' %}">← Home</a>
+            </p>
+        </div>
+    </div>
+
+{% endblock content %}

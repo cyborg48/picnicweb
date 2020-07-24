@@ -1,0 +1,68 @@
+{% extends "mypicnics/base.html" %}
+
+{% block content %}
+
+{% block createcritique %}{% endblock createcritique %}
+
+<div class="cover cover-small">
+    <img class="headImage" src="{{ art.artwork.url }}">
+    <div class="coverText">
+        <h1>{{ art.title }}</h1>
+    </div>
+</div> 
+
+<div class="container light">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}" role="alert">
+                {{message}}
+            </div>
+        {% endfor %}
+        <br><br>
+    {% endif %}
+
+
+    <div class="row">
+        <div class="col-6">
+            <a href="{% url 'picnic-detail' object.id %}">← Back to {{object.name}}</a><br><br>
+            <img src="{{art.artwork.url}}">
+        </div>
+        <div class="col-6">
+            <h1>{{ art.title }}</h1>
+            <h4>by {{ art.artist }}</h4>
+            {% if art.artist == user or object.host == user %}
+                {% if art.artist == user %} <a href="{% url 'edit-artwork' object.id  art.id %}">Edit</a> • {% endif %} 
+                <a href="{% url 'artwork-delete' object.id art.id %}">Delete</a>
+            {% endif %}
+            <br><br><h3>About this piece</h3>
+            <p>{{ art.description}} </p><br><br>
+            <h3>I would like feedback on:</h3>
+            <p>{{ art.feedback }}</p>
+
+      </div>
+    </div>
+
+    <br><br>
+    <h3>Critiques of this piece</h3>
+    <a href="{% url 'critique' object.id art.id %}"><input class="btn btn-primary solidbtn" type="submit" value="New"/></a><br><br>
+    {% for critique in art.critiques.all reversed %}
+                <div class="alert alert-orange sandwich">{{critique.bread1}}</div>
+                <div class="alert alert-success sandwich">{{critique.middle}}</div>
+                <div class="alert alert-orange sandwich">{{critique.bread2}}</div>
+                <p class="small critiquer"><i>Posted by {{critique.critiquer}} on {{critique.date_added}}</i>
+                    {% if critique.critiquer == user or object.host == user %}
+                        {% if critique.critiquer == user %} • <a href="{% url 'edit-critique' object.id art.id critique.id %}">Edit</a> {% endif %}
+                        • <a href="{% url 'critique-delete' object.id art.id critique.id %}">Delete</a>
+                    {% endif %}
+                    {% if art.artist == user and not critique.thanks_given %}
+                        • <a href="{% url 'give-thanks' object.id art.id critique.id %}">Thank Critiquer</a>
+                    {% endif %}
+                </p>
+                <br><br>
+    {% endfor %}
+
+
+</div>
+
+{% endblock content %}

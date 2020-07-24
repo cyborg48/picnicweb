@@ -1,0 +1,42 @@
+{% extends "mypicnics/home.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block modal %}
+
+            <script type="text/javascript">
+                $(window).on('load',function(){
+                    $('.modal').modal('show');
+                });
+            </script>
+
+            <div class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">You have been logged out.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <small class="text-muted">
+                            <a href="{% url 'login' %}">Log in again</a>
+                        </small>
+                        
+                    </div>
+                </div>
+                </div>
+            </div>  
+
+            <div class="cover">
+                <img class="headImage" src="{% static 'mypicnics/images/cover.png' %}">
+                <div class="coverText">
+                    <h1>Picnic</h1>
+                    <p>A critique app for creative people.</p>
+                    <a href="{% url 'my-picnics' %}"><button type="button" class="btn btn-primary clearbtn" id="getStarted">Get Started</button></a>
+                </div>
+            </div> 
+
+{% endblock modal %}
