@@ -291,3 +291,7 @@ h5{
 .notif-read{
     background-color: #dee
 }
+
+.footerText{
+    color: white !important;
+}

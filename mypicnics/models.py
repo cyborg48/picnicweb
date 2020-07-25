@@ -23,6 +23,19 @@ class Artwork(models.Model):
     critiques = models.ManyToManyField(Feedback, through='Critique')
     date_uploaded = models.DateTimeField(default=timezone.now, blank=True)
 
+    def save(self):
+        super().save()
+        artwork = Image.open(self.artwork.path)
+
+        if artwork.height > 1500 or artwork.width > 1500:
+            if artwork.height > artwork.width:
+                output_size = (1500, 1500*(artwork.width / artwork.height))
+            else:
+                output_size = (1500*(artwork.height / artwork.width), 1500)
+            # output_size = (2000, 2000)
+            artwork.thumbnail(output_size)
+            artwork.save(self.artwork.path)
+
 
 class Picnic(models.Model):
     name = models.CharField(max_length=100)
@@ -38,7 +51,16 @@ class Picnic(models.Model):
 
     def save(self):
         super().save()
-        
+        background_image = Image.open(self.background_image.path)
+
+        if background_image.height > 2500 or background_image.width > 2500:
+            if background_image.height > background_image.width:
+                output_size = (2500, 2500*(background_image.width / background_image.height))
+            else:
+                output_size = (2500*(background_image.height / background_image.width), 2500)
+            # output_size = (2000, 2000)
+            background_image.thumbnail(output_size)
+            background_image.save(self.background_image.path)
 
 class Membership(models.Model):
     group = models.ForeignKey(Picnic, on_delete=models.CASCADE)
