@@ -24,7 +24,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'RENDER' not in os.environ
-DEBUG = False
+DEBUG = True
 
 if not DEBUG:
     import dj_database_url
@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'crispy_forms',
 ]
 
-MIDDLEWARE = [
+if not DEBUG:
+    MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -59,6 +60,19 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+else:
+
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        # 'whitenoise.middleware.WhiteNoiseMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
 
 ROOT_URLCONF = 'picnic.urls'
 
@@ -78,7 +92,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'picnic.wsgi.application'
+
+if not DEBUG:
+    WSGI_APPLICATION = 'picnic.wsgi.application'
 
 
 # Database

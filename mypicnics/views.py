@@ -47,6 +47,8 @@ class PicnicDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(PicnicDetailView, self).get_context_data(**kwargs)
         context['pUser'] = PicnicUser.objects.get(user=self.request.user)
+        picnic = Picnic.objects.get(id=self.kwargs['pk'])
+        context['member'] = Membership.objects.get(group=picnic, member=self.request.user)
         return context
 
     def get_object(self, queryset=None):
@@ -199,7 +201,7 @@ class CritiqueCreateView(LoginRequiredMixin, CreateView):
         form.save()
         artwork.critiques.add(form.instance)
         membership = Membership.objects.filter(member=self.request.user, group=Picnic.objects.get(id=self.kwargs['picnicid']))[0]
-        membership.num_uploads += 1
+        membership.num_critiques += 1
         membership.save()
         n = Notification(message=self.request.user.username + " has critiqued your piece \"" + artwork.title + ".\"", \
             picnicid=self.kwargs['picnicid'], artworkid=self.kwargs['artworkid'])

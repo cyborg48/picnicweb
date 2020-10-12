@@ -11,6 +11,9 @@
     function leavePicnic(){
         $('#leavepicnic').modal('show');
     }
+    function addCritique(){
+      $('#addCritique').modal('show');
+    }
 </script>
 
 <div id="showkey" class="modal fade" tabindex="-1" role="dialog">
@@ -31,6 +34,20 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
 
+
+      </div>
+    </div>
+  </div>  
+
+  <div id="addCritique" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <p>Please critique at least one other upload before adding a new artwork!</p>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
 
       </div>
     </div>
@@ -59,7 +76,12 @@
       <div class="col-9">
         <a href="{% url 'my-picnics' %}">← Back to My Picnics</a><br><br>
         <h3>Artworks</h3>
-        <a href="{% url 'upload' object.id %}"><input class="btn btn-primary solidbtn" type="submit" value="New"/></a><br><br>
+
+        {% if member.num_critiques >= member.num_uploads %}
+          <a href="{% url 'upload' object.id %}"><input class="btn btn-primary solidbtn" type="submit" value="New"/></a><br><br>
+        {% else %}
+          <input class="btn btn-primary solidbtn" type="submit" value="New" onclick="addCritique()"/><br><br>
+        {% endif %}
 
           {% for artwork in object.artworks.all reversed %}
   

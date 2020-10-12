@@ -45,7 +45,11 @@
 
     <br><br>
     <h3>Critiques of this piece</h3>
+
+    {% if not art.artist == user %}
     <a href="{% url 'critique' object.id art.id %}"><input class="btn btn-primary solidbtn" type="submit" value="New"/></a><br><br>
+    {% endif %}
+
     {% for critique in art.critiques.all reversed %}
                 <div class="alert alert-orange sandwich">{{critique.bread1}}</div>
                 <div class="alert alert-success sandwich">{{critique.middle}}</div>
