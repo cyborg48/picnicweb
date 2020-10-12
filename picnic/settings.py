@@ -24,7 +24,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'RENDER' not in os.environ
-DEBUG = True
+DEBUG = False
 
 if not DEBUG:
     import dj_database_url
