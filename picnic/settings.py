@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'picnic.wsgi.application'
+WSGI_APPLICATION = 'picnic.wsgi.application'
 
 
 # Database
@@ -92,7 +92,6 @@ if DEBUG:
             }
     }
 else:
-    '''
     DATABASES = {
         'default': dj_database_url.config(
        # Feel free to alter this value to suit your needs.
@@ -100,8 +99,8 @@ else:
        conn_max_age=600
         )
     }
+    
     '''
-
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -112,6 +111,7 @@ else:
             'PORT': '',
         }
     }
+    '''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -157,7 +157,6 @@ MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
 
-'''
 if not DEBUG:
    # Tell Django to copy statics to the `staticfiles` directory
    # in your application directory on Render.
@@ -166,10 +165,6 @@ if not DEBUG:
    # Turn on WhiteNoise storage backend that takes care of compressing static files
    # and creating unique names for each version so they can safely be cached forever.
    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-'''
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
