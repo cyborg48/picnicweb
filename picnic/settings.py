@@ -23,7 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+# DEBUG = 'RENDER' not in os.environ
+DEBUG = False
 
 if not DEBUG:
     import dj_database_url
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -77,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'picnic.wsgi.application'
+# WSGI_APPLICATION = 'picnic.wsgi.application'
 
 
 # Database
@@ -91,12 +92,25 @@ if DEBUG:
             }
     }
 else:
+    '''
     DATABASES = {
         'default': dj_database_url.config(
        # Feel free to alter this value to suit your needs.
        default='postgresql://postgres:postgres@localhost:5432/picnicapp',
        conn_max_age=600
         )
+    }
+    '''
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'picnicapp',
+            'USER': 'picnicuser',
+            'PASSWORD': os.environ['DB_PASSWORD'],
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
 
 # Password validation
@@ -142,6 +156,8 @@ else:
 MEDIA_URL = '/media/'
 
 STATIC_URL = '/static/'
+
+'''
 if not DEBUG:
    # Tell Django to copy statics to the `staticfiles` directory
    # in your application directory on Render.
@@ -150,6 +166,10 @@ if not DEBUG:
    # Turn on WhiteNoise storage backend that takes care of compressing static files
    # and creating unique names for each version so they can safely be cached forever.
    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+'''
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
