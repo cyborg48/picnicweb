@@ -28,7 +28,7 @@ DEBUG = 'RENDER' not in os.environ
 if not DEBUG:
     import dj_database_url
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'picnicapp.live', 'www.picnicapp.live']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'picnicapp.live', 'www.picnicapp.live', '167.71.251.164']
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
