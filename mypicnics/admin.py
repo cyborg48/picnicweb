@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Picnic, Artwork, Feedback, Membership
+from .models import Picnic, Artwork, Feedback, Membership, Img
 
 # Register your models here.
 
@@ -12,3 +12,4 @@ class PicnicMembership(admin.ModelAdmin):
 admin.site.register(Picnic, PicnicMembership)
 admin.site.register(Artwork)
 admin.site.register(Feedback)
+admin.site.register(Img)

@@ -10,6 +10,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('', views.home, name='picnic-home'),
+    path('changelog/', views.changelog, name='changelog'),
     path('notifications/', views.notifications, name='notifications'),
     path('my-picnics/', views.myPicnics, name='my-picnics'),
     path('picnic/new/', PicnicCreateView.as_view(), name='picnic-create'),

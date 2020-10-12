@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from PIL import Image
 from django.contrib import admin
+from django import forms
 
 # Create your models here.
 
@@ -14,14 +15,33 @@ class Feedback(models.Model):
     date_added = models.DateTimeField(default=timezone.now, blank=True)
     thanks_given = models.BooleanField(default=False, blank=True)
 
+class Img(models.Model):
+    img = models.ImageField(upload_to="artworks")
+
+    def save(self, *args, **kwargs):
+        super().save()
+        img = Image.open(self.img.path)
+
+        if img.height > 1500 or img.width > 1500:
+            if img.height > img.width:
+                output_size = (1500, 1500*(img.width / img.height))
+            else:
+                output_size = (1500*(img.height / img.width), 1500)
+            # output_size = (2000, 2000)
+            img.thumbnail(output_size)
+            img.save(self.img.path)
+
 class Artwork(models.Model):
     title = models.CharField(max_length=100)
-    artwork = models.ImageField(upload_to="artworks")
+    cover = models.ForeignKey(Img, on_delete=models.CASCADE, related_name="cover", null=True, default=None)
+    artwork = models.ManyToManyField(Img)
     description = models.TextField(help_text="Describe this piece, the mediums you used, the ideas behind it, etc.")
     feedback = models.TextField(help_text="What aspects of this piece would you like feedback on? (color, composition, anatomy, etc.)")
     artist = models.ForeignKey(User, on_delete=models.CASCADE)
     critiques = models.ManyToManyField(Feedback, through='Critique')
     date_uploaded = models.DateTimeField(default=timezone.now, blank=True)
+
+    '''
 
     def save(self):
         super().save()
@@ -35,7 +55,7 @@ class Artwork(models.Model):
             # output_size = (2000, 2000)
             artwork.thumbnail(output_size)
             artwork.save(self.artwork.path)
-
+    '''
 
 class Picnic(models.Model):
     name = models.CharField(max_length=100)

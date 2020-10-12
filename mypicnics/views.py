@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Picnic, Membership, Artwork, Feedback
+from .models import Picnic, Membership, Artwork, Feedback, Img
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 import random
@@ -20,9 +20,14 @@ def home(request):
         'full': True,
         'title':'Picnic',
     }
-    print(settings.STATIC_ROOT)
-    print(settings.MEDIA_ROOT)
     return render(request, 'mypicnics/home.html', context)
+
+def changelog(request): 
+    context = {
+        'small': True,
+        'title':'Changelog',
+    }
+    return render(request, 'mypicnics/changelog.html', context)
 
 class PicnicCreateView(LoginRequiredMixin, CreateView):
     model = Picnic
@@ -136,7 +141,7 @@ def joinPicnic(request):
 class ArtworkCreateView(LoginRequiredMixin, CreateView):
     model = Artwork
     # template_name="mypicnics/picnic_detail.html"
-    fields = ['title', 'artwork', 'description', 'feedback']
+    fields = ['title', 'description', 'feedback']
     success_url='/picnic/'
     
 
@@ -146,6 +151,8 @@ class ArtworkCreateView(LoginRequiredMixin, CreateView):
         context['key'] = self.kwargs['pk']
         context['object'] = Picnic.objects.get(id=self.kwargs['pk'])
         context['pUser'] = PicnicUser.objects.get(user=self.request.user)
+        picnic = Picnic.objects.get(id=self.kwargs['pk'])
+        context['member'] = Membership.objects.get(group=picnic, member=self.request.user)
         return context
 
     def form_valid(self, form):
@@ -154,6 +161,18 @@ class ArtworkCreateView(LoginRequiredMixin, CreateView):
         form.instance.artist = self.request.user
         form.instance.group = picnic
         # form.instance.artwork = request.FILES['artwork']
+        form.save()
+        count = 0
+        for file in self.request.FILES.getlist('images'):
+            image = Img.objects.create(
+                img=file
+            )
+            image.save()
+            if count == 0:
+                form.instance.cover = image
+            count += 1
+            form.instance.artwork.add(image)
+        # instance.save()
         form.save()
         picnic.artworks.add(form.instance)
         membership = Membership.objects.filter(member=self.request.user, group=picnic)[0]

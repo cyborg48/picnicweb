@@ -2,8 +2,6 @@
 
 {% block content %}
 
-{% block createartwork %}{% endblock createartwork %}
-
 <script type="text/javascript">
     function showKey(){
         $('#showkey').modal('show');
@@ -15,6 +13,8 @@
       $('#addCritique').modal('show');
     }
 </script>
+
+{% block createartwork %}{% endblock createartwork %}
 
 <div id="showkey" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -87,7 +87,7 @@
   
               <a href="{% url 'artwork-detail' object.id artwork.id %}" class="picniclink">
                   <div class="card">
-                      <img class="card-img-top" src="{{artwork.artwork.url}}" alt="Card image cap">
+                      <img class="card-img-top" src="{{artwork.cover.img.url}}" alt="Card image cap">
                       <div class="card-body">
                           <div class="card-title">
                             <h5>{{artwork.title}}</h5>

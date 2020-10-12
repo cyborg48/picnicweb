@@ -21,7 +21,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="critique-detail">
-                        <img src="{{ art.artwork.url }}"><br><br>
+                        {% for artwork in art.artwork.all %}
+                        <img src="{{artwork.img.url}}"><br><br>
+                        {% endfor %}
                         <h6>Keep in mind that {{art.artist.username}} would like feedback on:</h6>
                         <p>{{art.feedback}}</p>
                         </div>

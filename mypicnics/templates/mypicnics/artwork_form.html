@@ -2,7 +2,6 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-
 {% block createartwork %}
 
     <script type="text/javascript">
@@ -25,6 +24,7 @@
                     {% csrf_token %}
                     <fieldset class = "form-group">
                         {{ form|crispy }}
+                        <input type="file" name="images" multiple accept="image/*">
                     </fieldset>
                     
                     <div class="form-group">
