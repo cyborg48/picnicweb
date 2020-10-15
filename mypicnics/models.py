@@ -29,7 +29,7 @@ class Img(models.Model):
                 output_size = (700*(img.height / img.width), 700)
             # output_size = (2000, 2000)
             img.thumbnail(output_size)
-            img.save(self.img.path)
+        img.save(self.img.path)
 
 class Artwork(models.Model):
     title = models.CharField(max_length=100)
