@@ -90,8 +90,8 @@ TEMPLATES = [
 ]
 
 
-if not DEBUG:
-    WSGI_APPLICATION = 'picnic.wsgi.application'
+# if not DEBUG:
+#    WSGI_APPLICATION = 'picnic.wsgi.application'
 
 
 # Database
