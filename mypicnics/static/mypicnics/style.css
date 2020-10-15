@@ -1,8 +1,8 @@
 :root {
     --colorPrimary: #08bfb4;
     --colorBackground: #005b69;
-    --fontPrimary: 'Dosis', sans-serif;
-    --fontHead: 'Montserrat', sans-serif;
+    --fontPrimary: Arial;
+    --fontHead: Verdana;
   }
 
   a{

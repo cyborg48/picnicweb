@@ -22,11 +22,11 @@ class Img(models.Model):
         super().save()
         img = Image.open(self.img.path)
 
-        if img.height > 1500 or img.width > 1500:
+        if img.height > 700 or img.width > 700:
             if img.height > img.width:
-                output_size = (1500, 1500*(img.width / img.height))
+                output_size = (700, 700*(img.width / img.height))
             else:
-                output_size = (1500*(img.height / img.width), 1500)
+                output_size = (700*(img.height / img.width), 700)
             # output_size = (2000, 2000)
             img.thumbnail(output_size)
             img.save(self.img.path)
