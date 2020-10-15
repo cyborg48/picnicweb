@@ -24,7 +24,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'RENDER' not in os.environ
-DEBUG = True
+DEBUG = False
 
 if not DEBUG:
     import dj_database_url
@@ -100,13 +100,13 @@ if not DEBUG:
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-            }
-    }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+
+'''
 else:
     DATABASES = {
         'default': dj_database_url.config(
@@ -116,7 +116,6 @@ else:
         )
     }
     
-    '''
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -127,7 +126,7 @@ else:
             'PORT': '',
         }
     }
-    '''
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
