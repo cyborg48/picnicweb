@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import sys
-import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,11 +20,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
+#DEBUG = True
+
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
-
 # Application definition
+
+if not DEBUG:
+    import dj_database_url
 
 INSTALLED_APPS = [
     'mypicnics.apps.MyPicnicsConfig',
@@ -90,7 +94,7 @@ if not DEBUG:
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if not DEBUG:
+if DEBUG:
 
     DATABASES = {
         'default': {
@@ -98,6 +102,7 @@ if not DEBUG:
             'NAME': os.path.join(BASE_DIR, "db.sqlite3"),
             }
     }
+
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
     if os.getenv("DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
