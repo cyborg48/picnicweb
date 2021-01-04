@@ -27,9 +27,6 @@ if not DEBUG:
     import dj_database_url
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'picnicapp.live', 'www.picnicapp.live', '167.71.251.164']
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-   ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
@@ -97,34 +94,13 @@ if not DEBUG:
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-            }
-    }
-else:
-    DATABASES = {
-        'default': dj_database_url.config(
-       # Feel free to alter this value to suit your needs.
-       default='postgresql://postgres:postgres@localhost:5432/picnicapp',
-       conn_max_age=600
-        )
-    }
-    
-    '''
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'picnicapp',
-            'USER': 'picnicuser',
-            'PASSWORD': os.environ['DB_PASSWORD'],
-            'HOST': 'localhost',
-            'PORT': '',
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, os.environ['DATABASE_URL']),
         }
-    }
-    '''
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
