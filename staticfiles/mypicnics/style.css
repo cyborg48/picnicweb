@@ -1,0 +1,297 @@
+:root {
+    --colorPrimary: #08bfb4;
+    --colorBackground: #005b69;
+    --fontPrimary: Arial;
+    --fontHead: Verdana;
+  }
+
+  a{
+    color:var(--colorPrimary) !important;
+}
+
+
+html{
+    font-family: var(--fontPrimary) !important;
+    background-color: var(--colorBackground) !important;
+    scroll-behavior: smooth;
+}
+
+img{
+    max-width:100%;
+}
+
+
+.headImage{
+    width:100%;
+    height:100%;
+    filter:blur(5px) brightness(0.4);
+    object-fit: cover;
+}
+
+.cover{
+    max-width:100vw;
+    height:calc(500px + 20vw);
+    margin-top: 3vw;
+    background-color:black;
+    position: relative;
+    text-align: center;
+    color: white;
+    overflow:hidden;
+}
+
+.cover-small{
+    height:20vw !important;
+}
+
+.coverText{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.clearbtn{
+    background-color: Transparent !important;
+    border-color:white !important;
+    color:white !important;
+}
+
+.clearbtn:hover{
+    background-color:white !important;
+    color:var(--colorPrimary) !important;
+}
+
+.solidbtn{
+    background-color: Transparent !important;
+    border-color:var(--colorPrimary) !important;
+    color:var(--colorPrimary) !important;
+}
+
+.solidbtn:hover{
+    background-color: var(--colorPrimary) !important;
+    border-color:var(--colorPrimary) !important;
+    color:white!important;
+}
+
+.nav{
+    background-color: var(--colorBackground) !important;
+    height: fit-content !important;
+    padding-top:1.25vw;
+    width: 100%;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0;
+}
+
+.nav-link {
+    color:white !important;
+    font-family: var(--fontHead) !important;
+    font-size:calc(10px+0.5vw);
+    margin-bottom:1vw;
+}
+
+.nav-link:hover{
+    color: var(--colorPrimary) !important;
+}
+
+p{
+    font-family: var(--fontHead) !important;
+}
+
+#footer{
+    font-family: var(--fontHead) !important;
+}
+
+h1{
+    font-family: var(--fontHead) !important;
+}
+
+h4{
+    font-family: var(--fontHead) !important;
+}
+
+h3{
+    font-family: var(--fontHead) !important;
+}
+
+.homeText{
+    font-size:20px !important;
+}
+
+h5{
+    font-family: var(--fontHead) !important;
+}
+
+.light{
+    background-color: white !important;
+    padding-top:5vw;
+    padding-bottom:5vw;
+}
+
+.medium{
+    background-color: var(--colorPrimary) !important;
+    color:white;
+    padding-top:5vw;
+    padding-bottom:5vw;
+}
+
+.dark{
+    background-color: var(--colorBackground) !important;
+    color:white;
+    padding-top:5vw;
+    padding-bottom:5vw;
+}
+
+.nav-item{
+    margin-left:1vw;
+    margin-right:1vw;
+}
+
+.text-muted{
+    color:var(--colorBackground)
+}
+
+.card{
+    display:inline-block !important;
+    max-width:350px !important;
+    margin-bottom:5px;
+    text-overflow: ellipsis;
+}
+
+.card:hover{
+    animation: darken 0.5s forwards;
+}
+
+.card-img-top{
+    height:15vw;
+    object-fit: cover;
+}
+
+@keyframes darken{
+    from {
+        filter:brightness(1)
+    }
+  to {
+      filter:brightness(0.5)
+    }
+}
+
+.withmargin{
+    margin-bottom:5vw;
+}
+
+.picniclink{
+    color:black !important;
+    text-decoration:none !important;
+}
+
+.card-text{
+    display:inline-block;
+    float:left;
+    max-width:300px !important;
+    max-height: 10vw !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom:20px !important;
+}
+
+.modal-lg{
+    width:calc(100% + 200px) !important;
+}
+
+.critique-detail{
+    width:48% !important;
+    display:inline-block !important;
+    margin-right:2% !important;
+    vertical-align:top;
+
+}
+
+.critique-form{
+    width:48% !important;
+    display:inline-block !important;
+}
+
+.textarea{
+    height:100px !important;
+}
+
+.critique-card{
+    width:30% !important;
+}
+
+.critique-card-text{
+    max-height: fit-content !important;
+    max-width:100% !important;
+    width:100% !important;
+    margin-bottom:0 !important;
+    width:fit-content !important;
+}
+
+.critiquer{
+    float:right !important;
+    text-align:right !important;
+    word-wrap:break-word !important;
+    max-width:100% !important;
+    width:100% !important;
+}
+
+.alert-orange{
+    background-color:#ffddaa !important;
+    color: #664400
+}
+
+.sandwich{
+    margin-bottom:2px !important;
+}
+
+.picnicdescrip{
+    text-align: justify !important;
+}
+
+#notifBell{
+    top:37.5%;
+    height:25%;
+    width:auto;
+    color: #ffffff;
+    position:absolute;
+    margin-right:5%;
+}
+#notifBell:hover{
+    color: var(--colorPrimary) !important;
+}
+
+#notifBell:hover + .notif-badge{
+    background-color: #992025 !important;
+}
+
+.notif-badge {
+    background-color: #fa3e3e;
+    border-radius: 50%;
+    height: 0px;
+    width: 0px;
+    padding: calc(0.1% + 3px) calc(0.1% + 3px);
+    position: absolute;
+    top:37.5%;
+  }
+
+.notifbox{
+    width:fit-content;
+}
+
+.notif-extra{
+    margin-left: 3% !important;
+}
+
+.notif{
+    padding:2%;
+    margin-bottom:7px;
+}
+
+.notif-read{
+    background-color: #dee
+}
+
+.footerText{
+    color: white !important;
+}
