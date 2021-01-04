@@ -24,7 +24,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,picnicapp.live,www.picnicapp.live").split(",")
 
 # Application definition
 
